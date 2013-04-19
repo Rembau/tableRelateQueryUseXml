@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!--<context:component-scan base-package="com.sundoctor"/> -->
+	
+	<!-- 属性文件读入 -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 配置dateset路径 -->
+	<bean id="ReadXML" class="com.eastcom.conf.ReadXML" init-method="handle">
+		<property name="path" value="D:\Program Files\Apache Software Foundation\Tomcat 6.0\webapps\nhm_webservice\WEB-INF\dateset.xml"></property>
+	</bean>
+	
+	<!-- 数据源定义-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />  
+	</bean>
+	<bean id="baseJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
+	<bean id="dbManager" class="com.eastcom.db.DBManager" init-method="init">
+		<property name="tem" ref="baseJdbcTemplate" />
+		<property name="sql_decice" value="${sql1}" />
+		<property name="sql_if" value="${sql2}" />
+	</bean>
+	<!-- 获取所有的设备,并初始化sql语句 -->
+	<bean id="InitDatesets" class="com.eastcom.conf.InitDatesets" init-method="excute"></bean>
+	<!-- 值特殊处理 -->
+	<bean id="UtiltySaveTwoDigit" class="com.eastcom.valueForm.UtiltySaveTwoDigit"></bean>
+	<bean id="StartTimeByEndTime" class="com.eastcom.valueForm.StartTimeByEndTime"></bean>
+</beans>
