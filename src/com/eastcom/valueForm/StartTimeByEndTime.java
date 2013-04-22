@@ -7,16 +7,16 @@ public class StartTimeByEndTime implements ValueFormat {
 
 	public Object format(Object o) {
 		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
-		 java.util.Date date1=null;
+		 java.util.Date date=null;
 		 try {
-			date1 = format.parse(o.toString());
+			date = format.parse(o.toString());
 		 } catch (ParseException e) {
 			e.printStackTrace();
 		 }  
-		 long Time=(date1.getTime()/1000)-60*5;  
-		 date1.setTime(Time*1000);  
-		 String mydate1=format.format(date1);   
-		 return mydate1.toString();
+		 long Time=(date.getTime()/1000)-60*5;  
+		 date.setTime(Time*1000);  
+		 String mydate=format.format(date);   
+		 return mydate.toString();
 	}
 
 }

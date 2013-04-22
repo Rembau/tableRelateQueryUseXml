@@ -3,6 +3,7 @@
 /lib
 /bin
 /.bin
+*.bak
 
 *.class
 
