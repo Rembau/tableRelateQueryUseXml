@@ -14,7 +14,7 @@
 	
 	<!-- 配置dateset路径 -->
 	<bean id="ReadXML" class="com.eastcom.conf.ReadXML" init-method="handle">
-		<property name="path" value="D:\Program Files\Apache Software Foundation\Tomcat 6.0\webapps\nhm_webservice\WEB-INF\dateset.xml"></property>
+		<property name="path" value="dateset.xml"></property>
 	</bean>
 	
 	<!-- 数据源定义-->

@@ -3,7 +3,9 @@ package com.eastcom.conf;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,12 +28,16 @@ public class ReadXML {
 	public void handle(){
 		InputStream is=null;
 		try {
-			File file = new File(path);
+			logger.info(Datesets.class.getClassLoader().getResource(path));
+			File file = new File(Datesets.class.getClassLoader().getResource(path).toURI());
+			//logger.info(ClassLoader.getSystemResource("\\WEB-INF\\dateset.xml").toString());
 			logger.info(file.getAbsolutePath());
 			is = new FileInputStream(file);
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
-		};
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 		try {
 			Document doc = new SAXReader().read(is);
 			logger.info("¿ªÊ¼½âÎö.");
